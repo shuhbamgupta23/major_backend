@@ -18,7 +18,7 @@ dotenv.config();
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://majorbackend-production-0037.up.railway.app/",
+    origin: "*",
     credentials: true,
   })
 );
