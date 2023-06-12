@@ -7,9 +7,7 @@ const sendToken = (user, statusCode, res) => {
 
   const options = {
     expires: new Date(Date.now() + 6000000),
-    httpOnly: true,
-    sameSite: "None",
-    secure: true,
+    httpOnly: false
   };
 
   res.status(statusCode).cookie("token", token, options).json({
