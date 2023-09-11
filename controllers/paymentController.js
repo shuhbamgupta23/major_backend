@@ -5,17 +5,21 @@ const stripe = new Stripe(
 );
 
 export const processPayment = asyncErrorHandler(async (req, res, next) => {
-  const myPayment = await stripe.paymentIntents.create({
-    amount: req.body.amount,
-    currency: "inr",
-    metadata: {
-      company: "Ecommerce",
-    },
-  });
+  try {
+    const myPayment = await stripe.paymentIntents.create({
+      amount: req.body.amount,
+      currency: "inr",
+      metadata: {
+        company: "Ecommerce",
+      },
+    });
 
-  res
-    .status(200)
-    .json({ success: true, client_secret: myPayment.client_secret });
+    res
+      .status(200)
+      .json({ success: true, client_secret: myPayment.client_secret });
+  } catch (err) {
+    res.status(404).json({ error: err.message });
+  }
 });
 
 export const sendStripeApiKey = asyncErrorHandler(async (req, res, next) => {
