@@ -10,13 +10,18 @@ import cookieParser from "cookie-parser";
 import cloudinary from "cloudinary";
 import fileUpload from "express-fileupload";
 import paymentRouter from "./routes/paymentRoute.js";
-import cors from "cors";
+
 
 const app = express();
 
 dotenv.config();
 app.use(express.json());
-app.use(cors());
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "https://major-frontend-ten.vercel.app");
+  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
